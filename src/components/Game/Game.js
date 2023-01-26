@@ -6,7 +6,8 @@ import GuessInput from "../GuessInput/GuessInput";
 import GuessResults from "../GuessResults/GuessResults";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 import { checkGuess } from "../../game-helpers";
-import Banner from "../GameOverBanner/GameOverBanner";
+import GameOverBanner from "../GameOverBanner/GameOverBanner";
+import VirtualKeyboard from "../VirtualKeyboard";
 
 // Pick a random word on every pageload.
 //const answer = sample(WORDS);
@@ -32,10 +33,6 @@ function Game() {
   const gameOver = numOfGuesses === NUM_OF_GUESSES_ALLOWED || isWin;
 
   function handleGuess(guess) {
-    if (numOfGuesses >= NUM_OF_GUESSES_ALLOWED) {
-      window.alert("You reached maximum number of guesses allowed");
-      return;
-    }
     const nextGuesses = [...guesses];
     nextGuesses[numOfGuesses] = checkGuess(guess, answer);
     setGuesses(nextGuesses);
@@ -52,8 +49,9 @@ function Game() {
     <>
       <GuessResults guesses={guesses} />
       <GuessInput onGuess={handleGuess} disabled={gameOver} />
+      <VirtualKeyboard guesses={guesses} />
       {gameOver && (
-        <Banner
+        <GameOverBanner
           isWin={isWin}
           answer={answer}
           numOfGuesses={numOfGuesses}

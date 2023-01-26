@@ -20,6 +20,7 @@ html {
 /*
   Custom styles
 */
+
 body {
   font-family: sans-serif;
 }
@@ -230,4 +231,45 @@ h1 {
   to {
     transform: translateY(0%);
   }
+}
+
+/*
+  Virtual Keyboard Styles
+*/
+
+.virtual-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.virtual-keyboard-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
+}
+
+.virtual-keyboard-key {
+  width: 9%;
+  height: 9%;
+  background-color: #d3d6da;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.virtual-keyboard-key.correct {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.virtual-keyboard-key.misplaced {
+  background-color: var(--color-warning);
+  color: white;
+}
+
+.virtual-keyboard-key.incorrect {
+  background-color: var(--color-gray-300);
+  color: white;
 }
