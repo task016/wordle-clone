@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 
-function GuessInput() {
-  const [input, setInput] = useState("FS");
+function GuessInput({ onGuess }) {
+  const [input, setInput] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
     console.log(input);
+    onGuess(input);
     setInput("");
   }
 
@@ -16,7 +17,7 @@ function GuessInput() {
         id="guess-input"
         type="text"
         value={input}
-        minLength="5"
+        pattern=".{5}"
         maxLength="5"
         onChange={(e) => setInput(e.target.value.toUpperCase())}
       />
