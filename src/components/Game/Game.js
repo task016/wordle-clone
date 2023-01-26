@@ -6,14 +6,15 @@ import GuessInput from "../GuessInput/GuessInput";
 import GuessResults from "../GuessResults/GuessResults";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 import { checkGuess } from "../../game-helpers";
-import Banner from "../Banner/Banner";
+import Banner from "../GameOverBanner/GameOverBanner";
 
 // Pick a random word on every pageload.
-const answer = sample(WORDS);
+//const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
+//console.info({ answer });
 
 function Game() {
+  const [answer, setAnswer] = useState(sample(WORDS));
   const [guesses, setGuesses] = useState(
     range(NUM_OF_GUESSES_ALLOWED).map((item) => "")
   );
@@ -41,23 +42,23 @@ function Game() {
     setNumOfGuesses(numOfGuesses + 1);
   }
 
+  function handlePlayAgain() {
+    setAnswer(sample(WORDS));
+    setGuesses(range(NUM_OF_GUESSES_ALLOWED).map((item) => ""));
+    setNumOfGuesses(0);
+  }
+
   return (
     <>
       <GuessResults guesses={guesses} />
       <GuessInput onGuess={handleGuess} disabled={gameOver} />
       {gameOver && (
-        <Banner variant={isWin ? "happy" : "sad"}>
-          {isWin ? (
-            <p>
-              <strong>Congratulations!</strong> Got it in
-              <strong> {numOfGuesses} guesses</strong>.
-            </p>
-          ) : (
-            <p>
-              Sorry, the correct answer is <strong>{answer}</strong>.
-            </p>
-          )}
-        </Banner>
+        <Banner
+          isWin={isWin}
+          answer={answer}
+          numOfGuesses={numOfGuesses}
+          onPlayAgain={handlePlayAgain}
+        />
       )}
     </>
   );
