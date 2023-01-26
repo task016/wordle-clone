@@ -2,13 +2,13 @@ import React from "react";
 import { range } from "../../utils";
 
 function Guess({ guess }) {
-  const letters = guess ? guess.split("") : range(5);
+  const letters = guess || range(5);
 
   return (
     <p className="guess">
-      {letters.map((letter, index) => (
-        <span className="cell" key={index}>
-          {guess && letter}
+      {letters.map((item, index) => (
+        <span className={`cell ${guess && item.status}`} key={index}>
+          {guess && item.letter}
         </span>
       ))}
     </p>
