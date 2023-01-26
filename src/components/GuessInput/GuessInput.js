@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 
-function GuessInput({ onGuess }) {
+function GuessInput({ onGuess, disabled }) {
   const [input, setInput] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(input);
     onGuess(input);
     setInput("");
   }
@@ -19,6 +18,7 @@ function GuessInput({ onGuess }) {
         value={input}
         pattern=".{5}"
         maxLength="5"
+        disabled={disabled}
         onChange={(e) => setInput(e.target.value.toUpperCase())}
       />
     </form>
