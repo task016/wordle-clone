@@ -2,7 +2,7 @@
 
 ## Joy of React, Project I
 
-### Try it here: [wordio](wordio-orpin.vercel.app)
+### Try it here: [wordio](htps://www.wordio-orpin.vercel.app)
 
 In this project, we'll recreate a popular online word game, Wordle.
 
