@@ -1,3 +1,5 @@
+const SOLVED_CHAR = "/";
+
 export function checkGuess(guess, answer) {
   if (!guess) {
     return null;
@@ -6,20 +8,38 @@ export function checkGuess(guess, answer) {
   const guessChars = guess.toUpperCase().split("");
   const answerChars = answer.split("");
 
-  return guessChars.map((guessChar, index) => {
-    const answerChar = answerChars[index];
+  const result = [];
 
-    let status;
-    if (guessChar === answerChar) {
-      status = "correct";
-    } else if (answerChars.includes(guessChar)) {
-      status = "misplaced";
-    } else {
-      status = "incorrect";
+  for (let i = 0; i < guessChars.length; i++) {
+    if (guessChars[i] === answerChars[i]) {
+      result[i] = {
+        letter: guessChars[i],
+        status: "correct",
+      };
+      answerChars[i] = SOLVED_CHAR;
+      guessChars[i] = SOLVED_CHAR;
     }
-    return {
-      letter: guessChar,
+  }
+
+  for (let i = 0; i < guessChars.length; i++) {
+    if (guessChars[i] === SOLVED_CHAR) {
+      continue;
+    }
+
+    let status = "incorrect";
+    const misplacedIndex = answerChars.findIndex(
+      (char) => char === guessChars[i]
+    );
+    if (misplacedIndex >= 0) {
+      status = "misplaced";
+      answerChars[misplacedIndex] = SOLVED_CHAR;
+    }
+
+    result[i] = {
+      letter: guessChars[i],
       status,
     };
-  });
+  }
+
+  return result;
 }
